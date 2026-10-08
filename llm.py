@@ -36,7 +36,7 @@ def parse_intent(text, history):
         raw = chat(msgs, 200)
         return _clean(json.loads(re.search(r"\{.*\}", raw, re.S).group(0)))
     except Exception:
-        return _clean(rule_fallback(text))          # small models sometimes break JSON
+        return _clean(rule_fallback(text))         
 
 def rule_fallback(t):
     l = t.lower()
