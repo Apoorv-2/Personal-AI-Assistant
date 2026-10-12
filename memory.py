@@ -21,7 +21,6 @@ class LongTermMemory:
         return json.loads(r[0]) if r else {}
     
     def record_meeting(self, name, hour):
-        """Count which hours each contact actually accepts; most frequent = preferred."""
         slots = self.get_slots(name); slots[str(hour)] = slots.get(str(hour), 0) + 1
         self.db.execute("INSERT OR REPLACE INTO contacts VALUES(?,?,COALESCE((SELECT notes FROM contacts WHERE name=?),''))",
                         (name.lower(), json.dumps(slots), name.lower()))
